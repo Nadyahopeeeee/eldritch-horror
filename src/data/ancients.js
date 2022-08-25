@@ -83,4 +83,4 @@ const ancientsData = [
   },
 ]
 
-export default ancientsData
+export { ancientsData }
