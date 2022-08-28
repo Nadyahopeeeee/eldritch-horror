@@ -13,7 +13,7 @@ body {
   color: yellow;
   text-align: center;
   gap: 10px;
-  height: auto;
+  height: 100vh;
   margin: 0 auto;
 }
 
@@ -62,6 +62,7 @@ h1 {
 .card_active {
   border: 1px solid yellow;
   transform: scale(1.1);
+  transition: 1s;
 }
 
 .level-btn__container {
@@ -69,6 +70,14 @@ h1 {
   justify-content: center;
   gap: 3%;
   flex-wrap: wrap;
+  margin-bottom: 20px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.level_active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .level-btn {
@@ -85,23 +94,18 @@ h1 {
 
 .level_active {
   transform: scale(1.2);
-  opacity: 0.8;
+  transition: 1s;
 }
 
-.shuffle {
-  display: flex;
-  justify-content: center;
-  margin-top: -15px;
-}
-
-.shuffle__button {
+.shaffle-btn {
   font-size: 20px;
   color: #fff;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color:rgba(0, 0, 0, 0.3);
   padding: 6px;
   border: 1px solid white;
+  border-radius: 10px;
   cursor: pointer;
-  width: 35%;
+  min-width: 15%;
 }
 
 .stage__container {
@@ -137,13 +141,13 @@ ul, li {
 
 .circle {
   display: flex;
-  border: 1px solid yellow;
-  border-radius: 50%;
+  border-radius: 20%;
   height: 30px;
   width: 30px;
   justify-content: center;
   align-items: center;
   font-size: 22px;
+  color: #fff;
 }
 
 .circle_green {
@@ -170,4 +174,11 @@ ul, li {
 .deck_show {
   opacity: 0;
   cursor: auto;
+}
+
+
+@media (max-width: 1141px) {
+  body {
+    height: auto;
+  }
 }
