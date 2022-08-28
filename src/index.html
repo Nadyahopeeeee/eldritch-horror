@@ -13,6 +13,7 @@
 <body>
   <header>
     <h1>Eldritch horror</h1>
+    <h2>Выберите карту Бога</h2>
   </header>
   <main>
     <ul class ="cards__container">
@@ -21,15 +22,15 @@
       <li class ="card card_iog-sothoth" id="iogSothoth"></li>
       <li class ="card card_snub_niggurath" id="shubNiggurath"></li>
     </ul>
-    <div class="level-btn__container">
-      <button class="level-btn level_very-easy">очень легко</button>
-      <button class="level-btn level_easy">легко</button>
-      <button class="level-btn level_medium">средне</button>
-      <button class="level-btn level_hard">тяжело</button>
-      <button class="level-btn level_very-hard">очень тяжело</dbutton>
+    <div class="level-btn__container hidden">
+      <button class="level-btn very-easy">очень легко</button>
+      <button class="level-btn easy">легко</button>
+      <button class="level-btn medium">средне</button>
+      <button class="level-btn hard">тяжело</button>
+      <button class="level-btn very-hard">очень тяжело</dbutton>
     </div>
-    <button class="shaffle-btn">замешать колоду!</button>
-    <div class="stage__container">
+    <button class="shaffle-btn hidden">замешать колоду!</button>
+    <div class="stage__container hidden">
       <ul class="stages">
         <li class="stage">1 этап
           <ul class="stage__count">
@@ -53,8 +54,8 @@
           </ul>
         </li>
       </ul>
-      <div class="deck"></div>
-      <div class="deck deck_show"></div>
+      <div class="deck deck_back"></div>
+      <div class="deck deck_front"></div>
     </div>
   </main>
   <footer></footer>

@@ -22,6 +22,11 @@ h1 {
   text-transform: uppercase;
 }
 
+h2 {
+  color: #fff;
+}
+
+
 .cards__container {
   display: flex;
   justify-content: space-around;
@@ -59,25 +64,12 @@ h1 {
   background-size: 250px 350px;
 }
 
-.card_active {
-  border: 1px solid yellow;
-  transform: scale(1.1);
-  transition: 1s;
-}
-
 .level-btn__container {
   display: flex;
   justify-content: center;
   gap: 3%;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  opacity: 0;
-  visibility: hidden;
-}
-
-.level_active {
-  opacity: 1;
-  visibility: visible;
 }
 
 .level-btn {
@@ -90,11 +82,6 @@ h1 {
   color: yellow;
   min-width: 100px;
   border-radius: 10px;
-}
-
-.level_active {
-  transform: scale(1.2);
-  transition: 1s;
 }
 
 .shaffle-btn {
@@ -163,7 +150,6 @@ ul, li {
 }
 
 .deck {
-  background: url(./assets/mythicCardBackground.jpg);
   background-repeat: no-repeat;
   background-size: 130px 190px;
   width: 130px;
@@ -171,9 +157,19 @@ ul, li {
   cursor: pointer;
 }
 
-.deck_show {
+.deck_back {
+  background: url(./assets/mythicCardBackground.jpg);
+}
+
+.active {
+  border: 1px solid yellow;
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.hidden {
   opacity: 0;
-  cursor: auto;
+  visibility: hidden;
 }
 
 
