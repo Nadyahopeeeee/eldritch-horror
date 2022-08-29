@@ -193,17 +193,17 @@ shaffleBtn.addEventListener('click', ()=>{
 	countFirstStageBrown.textContent = selectedAncientData.firstStage.brownCards;
 	countFirstStageBlue.textContent = selectedAncientData.firstStage.blueCards;
 	countSecondStageGreen.textContent = selectedAncientData.secondStage.greenCards;
-  countSecondStageBrown.textContent = selectedAncientData.secondStage.brownCards;
+    countSecondStageBrown.textContent = selectedAncientData.secondStage.brownCards;
 	countSecondStageBlue.textContent = selectedAncientData.secondStage.blueCards;
 	countThirdStageGreen.textContent = selectedAncientData.thirdStage.greenCards;
-  countThirdStageBrown.textContent = selectedAncientData.thirdStage.brownCards;
+    countThirdStageBrown.textContent = selectedAncientData.thirdStage.brownCards;
 	countThirdStageBlue.textContent = selectedAncientData.thirdStage.blueCards;
 	
 	stageCardRandom();
 
 	stageContainer.classList.remove('hidden');
 
-  help.textContent = 'Откройте колоду, нажав на рубашку карты';
+    help.textContent = 'Откройте колоду, нажав на рубашку карты';
 })
 
 
