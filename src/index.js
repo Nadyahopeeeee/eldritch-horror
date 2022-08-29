@@ -29,66 +29,64 @@ const levelBtnContainer  = document.querySelector('.level-btn__container');
 const shaffleBtn = document.querySelector('.shaffle-btn');
 
 //переназвать переменные
-const indicateFirstStageGreen = document.querySelector('.circle_green-1'),
-    indicateFirstStageBrown = document.querySelector('.circle_brown-1'),
-		indicateFirstStageBlue = document.querySelector('.circle_blue-1'),
-		indicateSecondStageGreen = document.querySelector('.circle_green-2'),
-    indicateSecondStageBrown = document.querySelector('.circle_brown-2'),
-		indicateSecondStageBlue = document.querySelector('.circle_blue-2'),
-		indicateThirdStageGreen = document.querySelector('.circle_green-3'),
-    indicateThirdStageBrown = document.querySelector('.circle_brown-3'),
-		indicateThirdStageBlue = document.querySelector('.circle_blue-3');
+const countFirstStageGreen = document.querySelector('.count_green-1');
+const countFirstStageBrown = document.querySelector('.count_brown-1');
+const countFirstStageBlue = document.querySelector('.count_blue-1');
+const countSecondStageGreen = document.querySelector('.count_green-2');
+const countSecondStageBrown = document.querySelector('.count_brown-2');
+const countSecondStageBlue = document.querySelector('.count_blue-2');
+const countThirdStageGreen = document.querySelector('.count_green-3');
+const countThirdStageBrown = document.querySelector('.count_brown-3');
+const countThirdStageBlue = document.querySelector('.count_blue-3');
 
 const stageContainer = document.querySelector('.stage__container');
 const deckBack = document.querySelector('.card__back');
 const deckFront = document.querySelector('.card__face');
-
-
 
 let selectedCard;
 let selectedLevel;
 let selectedAncientData;
 
 //переназвать переменные
-let levelBlueArray = [],
-    levelBrownArray = [],
-	 levelGreenArray = [];
+let levelBlueArray = [];
+let levelBrownArray = [];
+let levelGreenArray = [];
 
-let normalCardsGreen = [],
-    normalCardsBrown = [],
-	 normalCardsBlue = [];
+let normalCardsGreen = [];
+let normalCardsBrown = [];
+let normalCardsBlue = [];
 
-let firstStage = [],
-    secondStage = [],
-	 thirdStage = [];
+let firstStage = [];
+let secondStage = [];
+let thirdStage = [];
 
-let firstStageRandom = [],
-    secondStageRandom = [],
-	 thirdStageRandom = [];
+let firstStageRandom = [];
+let secondStageRandom = [];
+let thirdStageRandom = [];
 
 
 //=====SELECT CARD=====
 function activeCard(item) {
   if (selectedCard) { // убрать существующую подсветку, если есть
     selectedCard.classList.remove('active');
-  }
-  selectedCard = item;
-  selectedCard.classList.add('active'); // подсветить новую карту
+}
+selectedCard = item;
+selectedCard.classList.add('active'); // подсветить новую карту
 }
 
 cardsContainer.addEventListener('click', (e) => {
-  //делаем кноки уровней слоежности видимыми
-  levelBtnContainer.classList.remove('hidden');
+//делаем кноки уровней слоежности видимыми
+levelBtnContainer.classList.remove('hidden');
 
-  //выделяем стилями
-  let card = e.target.closest('.card');
-  if (!card) return;
-  activeCard(card);
+//выделяем стилями
+let card = e.target.closest('.card');
+if (!card) return;
+activeCard(card);
 
-  //select card = array of data
-  for (let i = 0; i < ancientsData.length; i++) {
+//select card = array of data
+for (let i = 0; i < ancientsData.length; i++) {
     if (ancientsData[i].name === selectedCard.id) {
-      selectedAncientData = ancientsData[i];
+    selectedAncientData = ancientsData[i];
     }
   }
   help.textContent = 'Выберите уровень сложности';
@@ -99,149 +97,12 @@ function activeLevel(item) {
   if (selectedLevel) { // убрать существующую подсветку, если есть
     selectedLevel.classList.remove('active');
   } selectedLevel = item;
-  selectedLevel.classList.add('active'); // подсветить новую карту
+    selectedLevel.classList.add('active'); // подсветить новую карту
 }
 
-levelBtnContainer.addEventListener('click', e => {
-  shaffleBtn.classList.remove('hidden');
-
-  let level = e.target.closest('.level-btn');
-  if (!level) return;
-  activeLevel(level);
-
-		takeLevelCards(blueCards, levelBlueArray, normalCardsBlue)
-		takeLevelCards(brownCards, levelBrownArray, normalCardsBrown)
-		takeLevelCards(greenCards, levelGreenArray, normalCardsGreen)
-		
-		levelBlueArray = levelBlueArray.map(item => 'blue-' + item)
-		levelBrownArray = levelBrownArray.map(item => 'brown-' + item)
-		levelGreenArray = levelGreenArray.map(item => 'green-' + item)
-		takeCardsStages()
-
-    help.textContent = 'Замешайте колоду, нажав на кнопку';
-
-		// if (!cardsContainer.classList.contains('choised-game')){
-		// 	cardsContainer.classList.add('choised-game')
-		// }
-		// if (!levelBtnContainerWrapper.classList.contains('choised-game')){
-		// 	levelBtnContainerWrapper.classList.add('choised-game');
-		// }
-		
-
-})
-
-shaffleBtn.addEventListener('click', ()=>{
-	indicateFirstStageGreen.textContent = selectedAncientData.firstStage.greenCards;
-	indicateFirstStageBrown.textContent = selectedAncientData.firstStage.brownCards;
-	indicateFirstStageBlue.textContent = selectedAncientData.firstStage.blueCards;
-	indicateSecondStageGreen.textContent = selectedAncientData.secondStage.greenCards;
-  indicateSecondStageBrown.textContent = selectedAncientData.secondStage.brownCards;
-	indicateSecondStageBlue.textContent = selectedAncientData.secondStage.blueCards;
-	indicateThirdStageGreen.textContent = selectedAncientData.thirdStage.greenCards;
-  indicateThirdStageBrown.textContent = selectedAncientData.thirdStage.brownCards;
-	indicateThirdStageBlue.textContent = selectedAncientData.thirdStage.blueCards;
-	
-	stageCardRandom();
-
-	stageContainer.classList.remove('hidden');
-	// if (!buttonCards.classList.contains('choised-game')){
-	// 	buttonCards.classList.add('choised-game');
-	// }
-
-  help.textContent = 'Откройте колоду, нажав на рубашку карты';
-})
-
-function stageCardRandom(){
-	const firstStageLength = firstStage.length;
-	const secondStageLength = secondStage.length;
-	const thirdStageLength = thirdStage.length;
-
-	for(let i = 0; i < firstStageLength; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (firstStage.length - 1))
-		firstStageRandom.push(firstStage[indexChoisedCard])
-		firstStage.splice(indexChoisedCard,1)
-	}
-	for(let i = 0; i < secondStageLength; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (secondStage.length - 1))
-		secondStageRandom.push(secondStage[indexChoisedCard])
-		secondStage.splice(indexChoisedCard,1)
-	}
-	for(let i = 0; i < thirdStageLength; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (thirdStage.length - 1))
-		thirdStageRandom.push(thirdStage[indexChoisedCard])
-		thirdStage.splice(indexChoisedCard,1)
-	}
-
-	console.log(firstStageRandom)
-	console.log(secondStageRandom)
-	console.log(thirdStageRandom)
-}
-
-deckBack.addEventListener('click', () =>{
-	showFaceCard();
-})
-
-function showFaceCard(){
-	if(firstStageRandom.length){
-		let showCard = firstStageRandom[firstStageRandom.length - 1];
-		if (showCard.indexOf('green') > -1){
-			deckFront.style.background = `url(assets/MythicCards/green/${showCard}.jpg) center/cover no-repeat`;
-		   firstStageRandom.pop()
-			indicateFirstStageGreen.textContent = +indicateFirstStageGreen.textContent - 1;
-		}
-		if (showCard.indexOf('blue') > -1){
-			deckFront.style.background = `url(assets/MythicCards/blue/${showCard}.jpg) center/cover no-repeat`;
-		   firstStageRandom.pop()
-			indicateFirstStageBlue.textContent = +indicateFirstStageBlue.textContent - 1;
-		}
-		if (showCard.indexOf('brown') > -1){
-			deckFront.style.background = `url(assets/MythicCards/brown/${showCard}.jpg) center/cover no-repeat`;
-		   firstStageRandom.pop()
-			indicateFirstStageBrown.textContent = +indicateFirstStageBrown.textContent - 1;
-		}
-	} else if (secondStageRandom.length){
-		let showCard = secondStageRandom[secondStageRandom.length - 1];
-		if (showCard.indexOf('green') > -1){
-			deckFront.style.background = `url(assets/MythicCards/green/${showCard}.jpg) center/cover no-repeat`;
-		   secondStageRandom.pop()
-			indicateSecondStageGreen.textContent = +indicateSecondStageGreen.textContent - 1;
-		}
-		if (showCard.indexOf('blue') > -1){
-			deckFront.style.background = `url(assets/MythicCards/blue/${showCard}.jpg) center/cover no-repeat`;
-		   secondStageRandom.pop()
-			indicateSecondStageBlue.textContent = +indicateSecondStageBlue.textContent - 1;
-		}
-		if (showCard.indexOf('brown') > -1){
-			deckFront.style.background = `url(assets/MythicCards/brown/${showCard}.jpg) center/cover no-repeat`;
-		   secondStageRandom.pop()
-			indicateSecondStageBrown.textContent = +indicateSecondStageBrown.textContent - 1;
-		}
-	} else if (thirdStageRandom.length){
-		let showCard = thirdStageRandom[thirdStageRandom.length - 1];
-		if (showCard.indexOf('green') > -1){
-			deckFront.style.background = `url(assets/MythicCards/green/${showCard}.jpg) center/cover no-repeat`;
-		   thirdStageRandom.pop()
-			indicateThirdStageGreen.textContent = +indicateThirdStageGreen.textContent - 1;
-		}
-		if (showCard.indexOf('blue') > -1){
-			deckFront.style.background = `url(assets/MythicCards/blue/${showCard}.jpg) center/cover no-repeat`;
-		   thirdStageRandom.pop()
-			indicateThirdStageBlue.textContent = +indicateThirdStageBlue.textContent - 1;
-		}
-		if (showCard.indexOf('brown') > -1){
-			deckFront.style.background = `url(assets/MythicCards/brown/${showCard}.jpg) center/cover no-repeat`;
-		   thirdStageRandom.pop()
-			indicateThirdStageBrown.textContent = +indicateThirdStageBrown.textContent - 1;
-		}
-		if (thirdStageRandom.length === 0){
-			cardBack.style.background = 'none';
-			regameWrap.classList.remove('hide');
-		}
-	} 
-}
 
 //переделать функцию
-function takeLevelCards(color, arr, normalArr){
+function getLevelCards(color, arr, normalArr){
 	if (arr.length !== 0){
 		while (arr.length > 0){
 			arr.pop()
@@ -250,6 +111,7 @@ function takeLevelCards(color, arr, normalArr){
 	for( let i = 0; i < color.length; i++){
 		if(selectedLevel === 'very-easy'){
 			if(color[i].difficulty === 'easy'){
+				console.log(color[0].difficulty);
 				arr.push(i + 1)
 			}
 			if(color[i].difficulty === 'normal'){
@@ -280,8 +142,135 @@ function takeLevelCards(color, arr, normalArr){
 	}
 }
 
+levelBtnContainer.addEventListener('click', (e) => {
+  shaffleBtn.classList.remove('hidden');
+
+  let level = e.target.closest('.level-btn');
+  if (!level) return;
+  activeLevel(level);
+
+		getLevelCards(blueCards, levelBlueArray, normalCardsBlue)
+		getLevelCards(brownCards, levelBrownArray, normalCardsBrown)
+		getLevelCards(greenCards, levelGreenArray, normalCardsGreen)
+		
+		levelBlueArray = levelBlueArray.map(item => 'blue-' + item)
+		levelBrownArray = levelBrownArray.map(item => 'brown-' + item)
+		levelGreenArray = levelGreenArray.map(item => 'green-' + item)
+		getCardsStages()
+
+    help.textContent = 'Замешайте колоду, нажав на кнопку';
+})
+
+shaffleBtn.addEventListener('click', ()=>{
+	countFirstStageGreen.textContent = selectedAncientData.firstStage.greenCards;
+	countFirstStageBrown.textContent = selectedAncientData.firstStage.brownCards;
+	countFirstStageBlue.textContent = selectedAncientData.firstStage.blueCards;
+	countSecondStageGreen.textContent = selectedAncientData.secondStage.greenCards;
+  countSecondStageBrown.textContent = selectedAncientData.secondStage.brownCards;
+	countSecondStageBlue.textContent = selectedAncientData.secondStage.blueCards;
+	countThirdStageGreen.textContent = selectedAncientData.thirdStage.greenCards;
+  countThirdStageBrown.textContent = selectedAncientData.thirdStage.brownCards;
+	countThirdStageBlue.textContent = selectedAncientData.thirdStage.blueCards;
+	
+	stageCardRandom();
+
+	stageContainer.classList.remove('hidden');
+
+  help.textContent = 'Откройте колоду, нажав на рубашку карты';
+})
+
+function stageCardRandom(){
+	const firstStageLength = firstStage.length;
+	const secondStageLength = secondStage.length;
+	const thirdStageLength = thirdStage.length;
+
+	for(let i = 0; i < firstStageLength; i++){
+		let indexSelectedCard = Math.floor(Math.random() * (firstStage.length - 1))
+		firstStageRandom.push(firstStage[indexSelectedCard])
+		firstStage.splice(indexSelectedCard,1)
+	}
+	for(let i = 0; i < secondStageLength; i++){
+		let indexSelectedCard = Math.floor(Math.random() * (secondStage.length - 1))
+		secondStageRandom.push(secondStage[indexSelectedCard])
+		secondStage.splice(indexSelectedCard,1)
+	}
+	for(let i = 0; i < thirdStageLength; i++){
+		let indexSelectedCard = Math.floor(Math.random() * (thirdStage.length - 1))
+		thirdStageRandom.push(thirdStage[indexSelectedCard])
+		thirdStage.splice(indexSelectedCard,1)
+	}
+
+	console.log(firstStageRandom)
+	console.log(secondStageRandom)
+	console.log(thirdStageRandom)
+}
+
+deckBack.addEventListener('click', () =>{
+	showFaceCard();
+})
+
+function showFaceCard(){
+	if(firstStageRandom.length){
+		let showCard = firstStageRandom[firstStageRandom.length - 1];
+		if (showCard.indexOf('green') > -1){
+			deckFront.style.background = `url(assets/MythicCards/green/${showCard}.jpg) center/cover no-repeat`;
+		    firstStageRandom.pop()
+			countFirstStageGreen.textContent = +countFirstStageGreen.textContent - 1;
+		}
+		if (showCard.indexOf('blue') > -1){
+			deckFront.style.background = `url(assets/MythicCards/blue/${showCard}.jpg) center/cover no-repeat`;
+		    firstStageRandom.pop()
+			countFirstStageBlue.textContent = +countFirstStageBlue.textContent - 1;
+		}
+		if (showCard.indexOf('brown') > -1){
+			deckFront.style.background = `url(assets/MythicCards/brown/${showCard}.jpg) center/cover no-repeat`;
+		    firstStageRandom.pop()
+			countFirstStageBrown.textContent = +countFirstStageBrown.textContent - 1;
+		}
+	} else if (secondStageRandom.length){
+		let showCard = secondStageRandom[secondStageRandom.length - 1];
+		if (showCard.indexOf('green') > -1){
+			deckFront.style.background = `url(assets/MythicCards/green/${showCard}.jpg) center/cover no-repeat`;
+		    secondStageRandom.pop()
+			countSecondStageGreen.textContent = +countSecondStageGreen.textContent - 1;
+		}
+		if (showCard.indexOf('blue') > -1){
+			deckFront.style.background = `url(assets/MythicCards/blue/${showCard}.jpg) center/cover no-repeat`;
+		    secondStageRandom.pop()
+			countSecondStageBlue.textContent = +countSecondStageBlue.textContent - 1;
+		}
+		if (showCard.indexOf('brown') > -1){
+			deckFront.style.background = `url(assets/MythicCards/brown/${showCard}.jpg) center/cover no-repeat`;
+		    secondStageRandom.pop()
+			countSecondStageBrown.textContent = +countSecondStageBrown.textContent - 1;
+		}
+	} else if (thirdStageRandom.length){
+		let showCard = thirdStageRandom[thirdStageRandom.length - 1];
+		if (showCard.indexOf('green') > -1){
+			deckFront.style.background = `url(assets/MythicCards/green/${showCard}.jpg) center/cover no-repeat`;
+		    thirdStageRandom.pop()
+			countThirdStageGreen.textContent = +countThirdStageGreen.textContent - 1;
+		}
+		if (showCard.indexOf('blue') > -1){
+			deckFront.style.background = `url(assets/MythicCards/blue/${showCard}.jpg) center/cover no-repeat`;
+		    thirdStageRandom.pop()
+			countThirdStageBlue.textContent = +countThirdStageBlue.textContent - 1;
+		}
+		if (showCard.indexOf('brown') > -1){
+			deckFront.style.background = `url(assets/MythicCards/brown/${showCard}.jpg) center/cover no-repeat`;
+		    thirdStageRandom.pop()
+			countThirdStageBrown.textContent = +countThirdStageBrown.textContent - 1;
+		}
+		if (thirdStageRandom.length === 0){
+			cardBack.style.background = 'none';
+			regameWrap.classList.remove('hide');
+		}
+	} 
+}
+
+
 //переделать функцию
-function takeCardsStages(){
+function getCardsStages(){
 	const summGreenCards = selectedAncientData.firstStage.greenCards + selectedAncientData.secondStage.greenCards + selectedAncientData.thirdStage.greenCards;
 	const summBrownCards = selectedAncientData.firstStage.brownCards + selectedAncientData.secondStage.brownCards + selectedAncientData.thirdStage.brownCards;
 	const summBlueCards = selectedAncientData.firstStage.blueCards + selectedAncientData.secondStage.blueCards + selectedAncientData.thirdStage.blueCards;
@@ -289,99 +278,76 @@ function takeCardsStages(){
 	if (levelGreenArray.length < summGreenCards){
 		const levelGreenArrayLength = levelGreenArray.length;
 		for (let i = 0; i < summGreenCards - levelGreenArrayLength; i++){
-			let indexChoisedCard = Math.floor(Math.random() * (normalCardsGreen.length - 1))
-			levelGreenArray.push('green-' + normalCardsGreen[indexChoisedCard])
-			normalCardsGreen.splice(indexChoisedCard,1)
+			let indexSelectedCard = Math.floor(Math.random() * (normalCardsGreen.length - 1))
+			levelGreenArray.push('green-' + normalCardsGreen[indexSelectedCard])
+			normalCardsGreen.splice(indexSelectedCard,1)
 		}
 	}
 	if (levelBrownArray.length < summBrownCards){
 		const levelBrownArrayLength = levelBrownArray.length;
 		for (let i = 0; i < summBrownCards - levelBrownArrayLength; i++){
-			let indexChoisedCard = Math.floor(Math.random() * (normalCardsBrown.length - 1))
-			levelBrownArray.push('brown-' + normalCardsBrown[indexChoisedCard])
-			normalCardsBrown.splice(indexChoisedCard,1)
+			let indexSelectedCard = Math.floor(Math.random() * (normalCardsBrown.length - 1))
+			levelBrownArray.push('brown-' + normalCardsBrown[indexSelectedCard])
+			normalCardsBrown.splice(indexSelectedCard,1)
 		}
 	}
 	if (levelBlueArray.length < summBlueCards){
 		const levelBlueArrayLength = levelBlueArray.length;
 		for (let i = 0; i < summBlueCards - levelBlueArrayLength; i++){
-			let indexChoisedCard = Math.floor(Math.random() * (normalCardsBlue.length - 1))
-			levelBlueArray.push('blue-' + normalCardsBlue[indexChoisedCard])
-			normalCardsBlue.splice(indexChoisedCard,1)
+			let indexSelectedCard = Math.floor(Math.random() * (normalCardsBlue.length - 1))
+			levelBlueArray.push('blue-' + normalCardsBlue[indexSelectedCard])
+			normalCardsBlue.splice(indexSelectedCard,1)
 		}
 	}
 
 	for(let i = 0; i < selectedAncientData.firstStage.greenCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelGreenArray.length - 1))
-		firstStage.push(levelGreenArray[indexChoisedCard])
-		levelGreenArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelGreenArray.length - 1))
+		firstStage.push(levelGreenArray[indexSelectedCard])
+		levelGreenArray.splice(indexSelectedCard,1)
 	}
 	for(let i = 0; i < selectedAncientData.firstStage.blueCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelBlueArray.length - 1))
-		firstStage.push(levelBlueArray[indexChoisedCard])
-		levelBlueArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelBlueArray.length - 1))
+		firstStage.push(levelBlueArray[indexSelectedCard])
+		levelBlueArray.splice(indexSelectedCard,1)
 	}
 	for(let i = 0; i < selectedAncientData.firstStage.brownCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelBrownArray.length - 1))
-		firstStage.push(levelBrownArray[indexChoisedCard])
-		levelBrownArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelBrownArray.length - 1))
+		firstStage.push(levelBrownArray[indexSelectedCard])
+		levelBrownArray.splice(indexSelectedCard,1)
 	}
 
 	for(let i = 0; i < selectedAncientData.secondStage.greenCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelGreenArray.length - 1))
-		secondStage.push(levelGreenArray[indexChoisedCard])
-		levelGreenArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelGreenArray.length - 1))
+		secondStage.push(levelGreenArray[indexSelectedCard])
+		levelGreenArray.splice(indexSelectedCard,1)
 	}
 	for(let i = 0; i < selectedAncientData.secondStage.blueCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelBlueArray.length - 1))
-		secondStage.push(levelBlueArray[indexChoisedCard])
-		levelBlueArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelBlueArray.length - 1))
+		secondStage.push(levelBlueArray[indexSelectedCard])
+		levelBlueArray.splice(indexSelectedCard,1)
 	}
 	for(let i = 0; i < selectedAncientData.secondStage.brownCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelBrownArray.length - 1))
-		secondStage.push(levelBrownArray[indexChoisedCard])
-		levelBrownArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelBrownArray.length - 1))
+		secondStage.push(levelBrownArray[indexSelectedCard])
+		levelBrownArray.splice(indexSelectedCard,1)
 	}
 
 	for(let i = 0; i < selectedAncientData.thirdStage.greenCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelGreenArray.length - 1))
-		thirdStage.push(levelGreenArray[indexChoisedCard])
-		levelGreenArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelGreenArray.length - 1))
+		thirdStage.push(levelGreenArray[indexSelectedCard])
+		levelGreenArray.splice(indexSelectedCard,1)
 	}
 	for(let i = 0; i < selectedAncientData.thirdStage.blueCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelBlueArray.length - 1))
-		thirdStage.push(levelBlueArray[indexChoisedCard])
-		levelBlueArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelBlueArray.length - 1))
+		thirdStage.push(levelBlueArray[indexSelectedCard])
+		levelBlueArray.splice(indexSelectedCard,1)
 	}
 	for(let i = 0; i < selectedAncientData.thirdStage.brownCards; i++){
-		let indexChoisedCard = Math.floor(Math.random() * (levelBrownArray.length - 1))
-		thirdStage.push(levelBrownArray[indexChoisedCard])
-		levelBrownArray.splice(indexChoisedCard,1)
+		let indexSelectedCard = Math.floor(Math.random() * (levelBrownArray.length - 1))
+		thirdStage.push(levelBrownArray[indexSelectedCard])
+		levelBrownArray.splice(indexSelectedCard,1)
 	}
 }
-
-// function activeCard(item) {
-//   if (selectedCard) { // убрать существующую подсветку, если есть
-//     selectedCard.classList.remove('card_active');
-//   } selectedCard = item;
-//   selectedCard.classList.add('card_active'); // подсветить новую карту
-// }
-
-// cardsContainer.addEventListener('click', (e) => {
-// 		for (let i = 0; i < ancientsData.length; i++){
-// 			if (ancientsData[i].name === selectedCard){
-// 				selectedAncientData = ancientsData[i];
-//         console.log(selectedAncientData);
-// 			}
-// 		}
-
-//     let card = e.target.closest('.card');
-//     if (!card) return;
-//     activeCard(card);
-
-//     console.log(selectedAncientData);
-// 		// levelBtnContainerWrapper.classList.remove('hide');
-// })
 
 /*======================Мой код раньше====================================
 console.log(typeof(brownCards));
@@ -427,28 +393,28 @@ function shuffle(array) {
 
 console.log(ancientsData[0].id)
 
-const circleGreen1 = document.querySelector('.circle_green-1');
-const circleBrown1 = document.querySelector('.circle_brown-1');
-const circleBlue1 = document.querySelector('.circle_blue-1');
+const countGreen1 = document.querySelector('.count_green-1');
+const countBrown1 = document.querySelector('.count_brown-1');
+const countBlue1 = document.querySelector('.count_blue-1');
 
-const circleGreen2 = document.querySelector('.circle_green-2');
-const circleBrown2 = document.querySelector('.circle_brown-2');
-const circleBlue2 = document.querySelector('.circle_blue-2');
+const countGreen2 = document.querySelector('.count_green-2');
+const countBrown2 = document.querySelector('.count_brown-2');
+const countBlue2 = document.querySelector('.count_blue-2');
 
-const circleGreen3 = document.querySelector('.circle_green-3');
-const circleBrown3 = document.querySelector('.circle_brown-3');
-const circleBlue3 = document.querySelector('.circle_blue-3');
+const countGreen3 = document.querySelector('.count_green-3');
+const countBrown3 = document.querySelector('.count_brown-3');
+const countBlue3 = document.querySelector('.count_blue-3');
 
-// circleGreen1.textContent = ancientsData[0].firstStage.greenCards;
-// circleBrown1.textContent = ancientsData[0].firstStage.brownCards;
-// circleBlue1.textContent = ancientsData[0].firstStage.blueCards;
+// countGreen1.textContent = ancientsData[0].firstStage.greenCards;
+// countBrown1.textContent = ancientsData[0].firstStage.brownCards;
+// countBlue1.textContent = ancientsData[0].firstStage.blueCards;
 
 
 function showAzathorCount() {
   if (selectedCard == ancientsData[0].id && selectedLevel == 'level_medium') {
-    circleGreen1.textContent = ancientsData[0].firstStage.greenCards;
-    circleBrown1.textContent = ancientsData[0].firstStage.brownCards;
-    circleBlue1.textContent = ancientsData[0].firstStage.blueCards;
+    countGreen1.textContent = ancientsData[0].firstStage.greenCards;
+    countBrown1.textContent = ancientsData[0].firstStage.brownCards;
+    countBlue1.textContent = ancientsData[0].firstStage.blueCards;
   }
 }
 
