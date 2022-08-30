@@ -1,0 +1,174 @@
+@import 'style/normalize';
+@import 'style/fonts';
+
+body {
+  font-family: 'Montserrat';
+  display: flex;
+  flex-direction: column;
+  background: url(./assets/home.jpg) no-repeat;
+  background-position: center center;
+  background-size: cover;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: yellow;
+  text-align: center;
+  gap: 10px;
+  height: auto;
+  margin: 0 auto;
+}
+
+h1 {
+  color: yellow;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: #fff;
+}
+
+
+.cards__container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  padding-bottom: 0;
+  gap: 3%;
+}
+
+.card {
+  width: 250px;
+  height: 350px;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+
+.card_azathoth {
+  background: url(./assets/Ancients/Azathoth.jpg) no-repeat;
+  background-size: 250px 350px;
+}
+
+.card_cthulthu {
+  background: url(./assets/Ancients/Cthulthu.jpg) no-repeat;
+  background-size: 250px 350px;
+}
+
+.card_iog-sothoth {
+  background: url(./assets/Ancients/IogSothoth.jpg) no-repeat;
+  background-size: 250px 350px;
+}
+
+.card_snub_niggurath {
+  background: url(./assets/Ancients/ShubNiggurath.jpg) no-repeat;
+  background-size: 250px 350px;
+}
+
+.level-btn__container {
+  display: flex;
+  justify-content: center;
+  gap: 3%;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.level-btn {
+  font-size: 18px;
+  background-color:rgba(0, 0, 0, 0.2);
+  padding: 6px;
+  border: 1px solid yellow;
+  cursor: pointer;
+  margin-bottom: 10px;
+  color: yellow;
+  min-width: 100px;
+  border-radius: 10px;
+}
+
+.shaffle-btn {
+  font-size: 20px;
+  color: #fff;
+  background-color:rgba(0, 0, 0, 0.3);
+  padding: 6px;
+  border: 1px solid white;
+  border-radius: 10px;
+  cursor: pointer;
+  min-width: 15%;
+}
+
+.stage__container {
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  flex-wrap: wrap;
+}
+
+ul, li {
+  list-style-type: none;
+}
+
+.stage {
+  color: yellow;
+}
+
+.stages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+}
+
+.stage__count {
+  display: flex;
+  gap: 15px;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.count {
+  display: flex;
+  border-radius: 20%;
+  height: 30px;
+  width: 30px;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #fff;
+}
+
+.count_green {
+  background-color: rgb(13, 72, 13);
+}
+
+.count_brown {
+  background-color: rgb(71, 13, 13);
+}
+
+.count_blue {
+  background-color: rgb(13, 13, 128);
+}
+
+.deck {
+  background-repeat: no-repeat;
+  background-size: 130px 190px;
+  width: 130px;
+  height: 190px;
+  cursor: pointer;
+}
+
+.deck_back {
+  background: url(./assets/mythicCardBackground.jpg);
+}
+
+.active {
+  border: 1px solid yellow;
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
